@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://bf6vaa16bkbap"]
+
+[ext_resource type="Script" uid="uid://vfem5vvqr5yd" path="res://scripts/Player.gd" id="1_yxkbn"]
+[ext_resource type="PackedScene" uid="uid://d1qpyobiogxb3" path="res://scenes/block.tscn" id="2_pnf12"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_qhqgy"]
+size = Vector2(1152, 896)
+
+[sub_resource type="Gradient" id="Gradient_dqkch"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qlg0r"]
+gradient = SubResource("Gradient_dqkch")
+height = 704
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qhqgy"]
+
+[sub_resource type="Gradient" id="Gradient_g2els"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qhqgy"]
+gradient = SubResource("Gradient_g2els")
+width = 50
+height = 50
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="Curve" id="Curve_qhqgy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_qhqgy"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 0.588235, 1, 1, 1, 0)
+
+[node name="Player" type="Node2D"]
+z_index = 10
+script = ExtResource("1_yxkbn")
+
+[node name="Block" parent="." instance=ExtResource("2_pnf12")]
+animate_movement = false
+
+[node name="PlayerClipMask" type="Sprite2D" parent="."]
+top_level = true
+clip_children = 1
+position = Vector2(32, 32)
+texture = SubResource("PlaceholderTexture2D_qhqgy")
+offset = Vector2(-32, -32)
+
+[node name="PlayerDirectionIndicator" type="Sprite2D" parent="PlayerClipMask"]
+modulate = Color(1, 1, 1, 0.109804)
+texture = SubResource("GradientTexture2D_qlg0r")
+offset = Vector2(0, -352)
+
+[node name="DirectionArrow" type="Polygon2D" parent="PlayerClipMask/PlayerDirectionIndicator"]
+visible = false
+material = SubResource("ShaderMaterial_qhqgy")
+position = Vector2(32, 60.8)
+scale = Vector2(1, 0.1)
+color = Color(0.856494, 1.97336e-06, 1.92523e-07, 1)
+offset = Vector2(-24, -32)
+polygon = PackedVector2Array(12, -3, 37, -3, 25, -13)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_index = -1
+position = Vector2(32, 32)
+amount = 30
+texture = SubResource("GradientTexture2D_qhqgy")
+lifetime = 0.2
+gravity = Vector2(0, 0)
+scale_amount_curve = SubResource("Curve_qhqgy")
+color_ramp = SubResource("Gradient_qhqgy")

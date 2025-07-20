@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1qpyobiogxb3"]
+
+[ext_resource type="Script" uid="uid://c11nefw5jdg3k" path="res://scripts/block.gd" id="1_8g2s8"]
+[ext_resource type="Texture2D" uid="uid://bnykhvd540b3p" path="res://assets/player_icon.svg" id="1_70mrs"]
+[ext_resource type="Material" uid="uid://ddgk2jbda6502" path="res://resources/threshold_color_material.tres" id="2_h4vqj"]
+[ext_resource type="Shader" uid="uid://rbjqe52qhbhh" path="res://resources/threshold_color.gdshader" id="4_ojgcc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1bw7o"]
+resource_local_to_scene = true
+shader = ExtResource("4_ojgcc")
+shader_parameter/difference_point = 0.382
+shader_parameter/first_color = Color(0.117647, 0.117647, 0.117647, 0.639216)
+shader_parameter/second_color = Color(0.117647, 0.117647, 0.117647, 0.639216)
+shader_parameter/blur_strength = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_o1inx"]
+line_spacing = 0.0
+font_size = 143
+font_color = Color(0, 0, 0, 0.635294)
+outline_size = 1
+outline_color = Color(0.176471, 0.176471, 0.176471, 1)
+
+[node name="Block" type="Node2D"]
+script = ExtResource("1_8g2s8")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Shadow" type="Sprite2D" parent="Visuals"]
+clip_children = 2
+z_index = -2
+texture_filter = 1
+material = SubResource("ShaderMaterial_1bw7o")
+position = Vector2(36, 36)
+texture = ExtResource("1_70mrs")
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+clip_children = 2
+texture_filter = 1
+material = ExtResource("2_h4vqj")
+position = Vector2(32, 32)
+texture = ExtResource("1_70mrs")
+
+[node name="Label" type="Label" parent="Visuals/Sprite2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -157.0
+offset_right = 86.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(118, 128)
+text = "⚀"
+label_settings = SubResource("LabelSettings_o1inx")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true

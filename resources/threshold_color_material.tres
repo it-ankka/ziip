@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ddgk2jbda6502"]
+
+[ext_resource type="Shader" uid="uid://rbjqe52qhbhh" path="res://resources/threshold_color.gdshader" id="1_8g1lt"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_8g1lt")
+shader_parameter/difference_point = 0.382
+shader_parameter/first_color = Color(0.309804, 0.309804, 0.309804, 1)
+shader_parameter/second_color = Color(0.233926, 0.233925, 0.233926, 1)
+shader_parameter/blur_strength = 1

@@ -1,0 +1,214 @@
+[gd_scene load_steps=15 format=3 uid="uid://co0m6i4sea31i"]
+
+[ext_resource type="Shader" uid="uid://voluyjt5w0xt" path="res://resources/indicator_shader.gdshader" id="1_rtdmr"]
+[ext_resource type="Script" uid="uid://cpfidqghlhqmf" path="res://scripts/spawn_indicator.gd" id="1_vvrx0"]
+[ext_resource type="Texture2D" uid="uid://bnykhvd540b3p" path="res://assets/player_icon.svg" id="2_vvrx0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rnh5c"]
+shader = ExtResource("1_rtdmr")
+
+[sub_resource type="Animation" id="Animation_x55yt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Lines:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Lines:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-3.14159]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Lines:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_icvww"]
+resource_name = "indicator_loop"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Lines:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0bmwg"]
+resource_name = "indicator_move"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Lines:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.00048437, 0.0725, 0.2, 0.325, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.9, 0.9), Vector2(10, 10), Vector2(0.9, 0.9), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Lines:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.00048437, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -3.14159, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Lines:modulate")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.00048437, 0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_handle_indicator_moved"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u0v1e"]
+_data = {
+&"RESET": SubResource("Animation_x55yt"),
+&"indicator_loop": SubResource("Animation_icvww"),
+&"indicator_move": SubResource("Animation_0bmwg")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_erqit"]
+animation = &"indicator_loop"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2vx26"]
+animation = &"indicator_move"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4glf5"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vvrx0"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rnh5c"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_axf2e"]
+allow_transition_to_self = true
+states/End/position = Vector2(981, 93)
+states/Start/position = Vector2(179, 100)
+states/indicator_loop/node = SubResource("AnimationNodeAnimation_erqit")
+states/indicator_loop/position = Vector2(484, 100)
+states/indicator_move/node = SubResource("AnimationNodeAnimation_2vx26")
+states/indicator_move/position = Vector2(786, 100)
+transitions = ["indicator_move", "indicator_loop", SubResource("AnimationNodeStateMachineTransition_4glf5"), "Start", "indicator_loop", SubResource("AnimationNodeStateMachineTransition_vvrx0"), "indicator_loop", "indicator_move", SubResource("AnimationNodeStateMachineTransition_rnh5c")]
+
+[node name="SpawnIndicator" type="Node2D"]
+modulate = Color(0.856494, 1.97336e-06, 1.92523e-07, 1)
+z_index = 10
+script = ExtResource("1_vvrx0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_rnh5c")
+texture = ExtResource("2_vvrx0")
+centered = false
+
+[node name="Lines" type="Node2D" parent="."]
+position = Vector2(32, 32)
+rotation = -3.14159
+scale = Vector2(1e-05, 1e-05)
+
+[node name="Line2D" type="Line2D" parent="Lines"]
+position = Vector2(-32, -32)
+points = PackedVector2Array(0, 16, 0, 4, 4, 0, 16, 0)
+width = 8.0
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 3
+
+[node name="Line2D2" type="Line2D" parent="Lines"]
+position = Vector2(32, -32)
+rotation = 1.5708
+points = PackedVector2Array(0, 16, 0, 4, 4, 0, 16, 0)
+width = 8.0
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 3
+
+[node name="Line2D3" type="Line2D" parent="Lines"]
+position = Vector2(32, 32)
+rotation = 3.14159
+points = PackedVector2Array(0, 16, 0, 4, 4, 0, 16, 0)
+width = 8.0
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 3
+
+[node name="Line2D4" type="Line2D" parent="Lines"]
+position = Vector2(-32, 32)
+rotation = 4.71239
+points = PackedVector2Array(0, 16, 0, 4, 4, 0, 16, 0)
+width = 8.0
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_u0v1e")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_axf2e")
+anim_player = NodePath("../AnimationPlayer")

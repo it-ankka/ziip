@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxsu63mn7e75q"]
+
+[ext_resource type="Shader" uid="uid://d2g73um000nvj" path="res://resources/background_two.gdshader" id="1_1cgai"]
+
+[sub_resource type="Gradient" id="Gradient_0pyvj"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.319672, 0.516393)
+colors = PackedColorArray(0.00392157, 0.443137, 0.733333, 1, 0.831373, 0.980392, 0.984314, 1, 0.00392157, 0.443137, 0.733333, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_a3qw8"]
+gradient = SubResource("Gradient_0pyvj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_co04e"]
+shader = ExtResource("1_1cgai")
+shader_parameter/gradientTexture = SubResource("GradientTexture1D_a3qw8")
+shader_parameter/scale = 6.0
+shader_parameter/timeScale = 1.0
+shader_parameter/fbmOctaves = 1
+shader_parameter/fbmAmplitude = 0.5
+shader_parameter/fbmFrequency = 2.0
+shader_parameter/patternIterations = 1
+shader_parameter/applySwirl = true
+shader_parameter/rotationRadius = 0.735
+shader_parameter/rotationAngle = 2.733
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_6wyu2"]
+size = Vector2(1920, 1080)
+
+[node name="Node2D" type="Sprite2D"]
+material = SubResource("ShaderMaterial_co04e")
+texture = SubResource("PlaceholderTexture2D_6wyu2")

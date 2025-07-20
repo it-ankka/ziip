@@ -1,0 +1,19 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bq2kjq0ot40w8"]
+
+[ext_resource type="Shader" uid="uid://bhwwlpo4334m1" path="res://resources/background.gdshader" id="1_nqsev"]
+
+[sub_resource type="Gradient" id="Gradient_ssjm7"]
+offsets = PackedFloat32Array(0, 0.245902, 0.393443, 0.516393, 0.622951)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0.558712, 0.964206, 1, 0.0482214, 0.00842309, 2.25613e-09, 1, 1, 0.138339, 0.19443, 1, 0.357646, 0, 0.0282423, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_es4to"]
+gradient = SubResource("Gradient_ssjm7")
+
+[resource]
+shader = ExtResource("1_nqsev")
+shader_parameter/gradientTexture = SubResource("GradientTexture1D_es4to")
+shader_parameter/resolution = Vector2(16, 9)
+shader_parameter/scale = 90.0
+shader_parameter/timeScale = 0.2
+shader_parameter/fbmOctaves = 2.0
+shader_parameter/fbmFrequency = 0.5
