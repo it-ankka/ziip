@@ -1,8 +1,8 @@
 class_name Game extends Node2D
 
 @onready var spawn_timer: Timer = $SpawnTimer
-@onready var level_label: Label = $UI/LevelLabel
-@onready var score_label: Label = $UI/ScoreLabel
+@onready var level_label: RichTextLabel = $UI/LevelLabel
+@onready var score_label: RichTextLabel = $UI/ScoreLabel
 
 @export var block_scene: PackedScene
 

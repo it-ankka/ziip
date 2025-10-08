@@ -8,6 +8,13 @@ extends Node2D
 
 @export var blockDestructionParticles: PackedScene = preload("res://scenes/destruction_particles.tscn")
 
+var value: int :
+	set(val):
+		block.value = val
+		trail.color = block.COLORS[block.value]
+	get:
+		return block.value
+
 var can_move = true
 var cur_dir = Vector2.UP
 var grid_pos: Vector2:
@@ -69,9 +76,8 @@ func _input(event: InputEvent) -> void:
 				t.timeout.connect(func(): destroy_block(b))
 			var temp_val = block.value
 			if not blocks.is_empty():
-				block.value = blocks.front().value
+				value = blocks.front().value
 				blocks.front().value = temp_val
-			trail.color = block.COLORS[block.value]
 		tween.tween_callback(switch_values)
 		tween.tween_property(self, "global_position", grid_pos * 64, 0.1)
 		return

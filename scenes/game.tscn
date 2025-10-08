@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://bnbx7r3msdetm"]
+[gd_scene load_steps=9 format=4 uid="uid://bnbx7r3msdetm"]
 
 [ext_resource type="Script" uid="uid://bqsu6b4uupunj" path="res://scripts/game.gd" id="1_pb4y6"]
 [ext_resource type="PackedScene" uid="uid://d1qpyobiogxb3" path="res://scenes/block.tscn" id="2_14mlr"]
@@ -6,13 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://bf6vaa16bkbap" path="res://scenes/player.tscn" id="4_wxaul"]
 [ext_resource type="Material" uid="uid://bq2kjq0ot40w8" path="res://resources/background_shader_material.tres" id="5_n72e3"]
 [ext_resource type="PackedScene" uid="uid://co0m6i4sea31i" path="res://scenes/spawn_indicator.tscn" id="6_p57ef"]
-[ext_resource type="PackedScene" uid="uid://ddmvsqu02jxlk" path="res://scenes/destruction_particles.tscn" id="6_u5sy4"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_p57ef"]
-font_size = 64
-outline_size = 26
-outline_color = Color(0.129412, 0.145098, 0.196078, 1)
-shadow_color = Color(0, 0, 0, 0.133333)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_v43iv"]
 size = Vector2(1920, 1080)
@@ -32,32 +25,45 @@ initial_blocks = 4
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 3.0
+autostart = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 offset = Vector2(-960, -540)
 transform = Transform2D(1, 0, 0, 1, -960, -540)
 follow_viewport_enabled = true
 
-[node name="LevelLabel" type="Label" parent="UI"]
-offset_left = 16.0
-offset_right = 325.0
-offset_bottom = 88.0
-text = "LEVEL"
-label_settings = SubResource("LabelSettings_p57ef")
-uppercase = true
+[node name="LevelLabel" type="RichTextLabel" parent="UI"]
+offset_right = 296.0
+offset_bottom = 176.0
+theme_override_colors/default_color = Color(0.468558, 0.916519, 0, 1)
+theme_override_colors/font_outline_color = Color(0.129412, 0.145098, 0.196078, 1)
+theme_override_constants/outline_size = 24
+theme_override_font_sizes/normal_font_size = 76
+bbcode_enabled = true
+text = "[wave amp=24.0 freq=4.0]LEVEL
+5
+[/wave]"
+fit_content = true
+horizontal_alignment = 1
 
-[node name="ScoreLabel" type="Label" parent="UI"]
+[node name="ScoreLabel" type="RichTextLabel" parent="UI"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -325.0
-offset_right = -16.0
-offset_bottom = 88.0
+offset_left = -304.0
+offset_right = -8.0
+offset_bottom = 176.0
 grow_horizontal = 0
-text = "SCORE"
-label_settings = SubResource("LabelSettings_p57ef")
-horizontal_alignment = 2
-uppercase = true
+theme_override_colors/default_color = Color(0.935737, 0.712657, 0, 1)
+theme_override_colors/font_outline_color = Color(0.129412, 0.145098, 0.196078, 1)
+theme_override_constants/outline_size = 24
+theme_override_font_sizes/normal_font_size = 76
+bbcode_enabled = true
+text = "[wave amp=24.0 freq=4.0]SCORE
+300
+[/wave]"
+fit_content = true
+horizontal_alignment = 1
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -75,7 +81,6 @@ texture = SubResource("PlaceholderTexture2D_v43iv")
 
 [node name="Player" parent="." instance=ExtResource("4_wxaul")]
 clip_children = 1
-blockDestructionParticles = ExtResource("6_u5sy4")
 
 [node name="Tilemap" type="Node2D" parent="."]
 
@@ -111,5 +116,5 @@ use_parent_material = true
 tile_map_data = PackedByteArray("AAD+//7/AwAAAAAAAAD+////AwAAAAAAAAD+/wAAAwAAAAAAAAD+/wEAAwAAAAAAAAD///7/AwAAAAAAAAD/////AwAAAAAAAAD//wAAAwAAAAAAAAD//wEAAwAAAAAAAAAAAP7/AwAAAAAAAAAAAP//AwAAAAAAAAAAAAAAAwAAAAAAAAAAAAEAAwAAAAAAAAABAP7/AwAAAAAAAAABAP//AwAAAAAAAAABAAAAAwAAAAAAAAABAAEAAwAAAAAAAAA=")
 tile_set = ExtResource("4_p57ef")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Tilemap"]
 environment = SubResource("Environment_p57ef")
